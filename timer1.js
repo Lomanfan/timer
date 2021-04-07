@@ -1,21 +1,24 @@
 
-const timeSet = process.argv.slice(2);
-// console.log(timeSet); []
+const timeSet = process.argv.slice(2)
 
-for (let time of timeSet) {
+let numTime = [];
 
-  if (!isNaN(time) && time > 0) {
+timeSet.forEach((time) => {
+  numTime.push(Number(time));
+});
 
-    setTimeout (() => {
-      process.stdout.write('#Second'+'\x07')
-     }, 1000 * time);             
+numTime.sort(function (a, b) { return a - b; });
 
-  }
+console.log(numTime);
+
+let total = 0;
+
+for (let i = 0; i < numTime.length; i++) {
+
+  total += i > 0 ? numTime[i] : 0;
+
+  setTimeout(() => {
+    process.stdout.write(`${numTime[i]} Seconds` + '\x07')
+  }, 1000 * (total + numTime[i]));
 
 };
-
-
-//Edge Cases:
-//No numbers are provided
-//An input is a negative number
-//An input is not a number
